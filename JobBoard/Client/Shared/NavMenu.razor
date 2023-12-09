@@ -14,7 +14,7 @@
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="authentication/proile" Match="NavLinkMatch.All">
-                        <span class="oi oi-person" aria-hidden="true"></span> Hello, @context.User.Identity?.Name!
+                        <span class="oi oi-person" aria-hidden="true"></span>@context.User.Identity?.Name!
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
@@ -42,28 +42,18 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="jobcreation">
+                <span class="oi oi-script" aria-hidden="true"></span> JobCreation
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="JobApplication">
-                <span class="oi oi-script" aria-hidden="true"></span> JobApplication
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Jobs">
+            <NavLink class="nav-link" href="jobs">
                 <span class="oi oi-briefcase" aria-hidden="true"></span> Jobs
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Message">
-                <span class="oi oi-envelope-closed" aria-hidden="true"></span> Message
+            <NavLink class="nav-link" href="messages">
+                <span class="oi oi-envelope-closed" aria-hidden="true"></span> Messages
             </NavLink>
         </div>
     </nav>
