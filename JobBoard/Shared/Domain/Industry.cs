@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace JobBoard.Shared.Domain
 {
-    public class Industry
+    public class Industry : BaseDomainModel
     { 
-        public int IndustryID { get; set; }
         public string? I_Type { get; set; }
     }
 }

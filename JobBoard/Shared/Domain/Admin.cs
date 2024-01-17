@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace JobBoard.Shared.Domain
 {
-    public class Admin
+    public class Admin : BaseDomainModel
     {
-        public int AdminID { get; set; }
         public string? Ad_Name { get; set; }
         public string? Ad_Email { get; set; }
         public string? Ad_Password { get; set; }

@@ -9,7 +9,7 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),url('../Images/ImageForLanding.jpg');
             background-size: cover;
             background-position: center;
-            align-content: center;
+            /*align-content: center;*/
         }
         .search-button{
             width: 100px;
@@ -32,7 +32,20 @@
             width:200px;
             height:30px;
         }
-    </style>
+
+        .img_row {
+            display: flex;
+        }
+
+        .img_column {
+            flex: 33.33%;
+            padding: 5px;
+        }
+        .img{
+            height:175px;
+            width:175px;
+        }
+     </style>
 </head>
 <body>
     <center>
@@ -42,11 +55,12 @@
         <input class="input" type="text" placeholder="Location...">
         <button class="search-button">Search</button>
         <div class="text-colour">Trending Jobs:</div>
+        <div class="img_row">
+            <div class="img_column"><img class="img" src="../Images/Amazon_Logo.jpg"></div>
+            <div class="img_column"><img class="img" src="../Images/Apple_Logo.jpg"></div>
+            <div class="img_column"><img class="img" src="../Images/Google_Logo.jpg"></div>
+        </div>
     </center>
-
-    <div><img src="Amazon_Logo.jpg" width="150" height="150"></div>
-    <div><img src="Apple_Logo.jpg" width="150" height="150"></div>
-    <div><img src="Google_Logo.jpg" width="150" height="150"></div>
 </body>
 
 

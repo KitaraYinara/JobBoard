@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace JobBoard.Shared.Domain
 {
-    public class JobApplication : AbtractDateCU
+    public class JobApplication : BaseDomainModel
     {
-        public int JobAppID { get; set; }
         public string? JA_CoverLetter { get; set; }
         public string? JA_Resume { get; set; }
         public string? JA_Portfolio { get; set; }
         public string? JA_Status { get; set; }
-        public int JobID { get; set; }
+        public int JobId { get; set; }
         public virtual Job? Job { get; set; }
-        public int ApplicantID { get; set; }
+        public int ApplicantId { get; set; }
         public virtual Applicant? Applicant { get; set; }
+        public DateTime DateCreatead { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }

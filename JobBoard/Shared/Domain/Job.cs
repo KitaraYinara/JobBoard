@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace JobBoard.Shared.Domain
 {
-    public class Job : AbtractDateCU
+    public class Job : BaseDomainModel
     {
-        public int JobID { get; set; }
         public string? J_Name { get; set; }
         public string? J_Location { get; set; }
         public string? J_Description { get; set; }
@@ -16,9 +15,11 @@ namespace JobBoard.Shared.Domain
         public string? J_Type { get; set; }
         public string? J_Skills { get; set; }
         public bool J_Urgency { get; set; }
-        public int EmployerID { get; set; }
+        public int EmployerId { get; set; }
         public virtual Employer? Employer { get; set; }
-        public string? IndustryID { get; set; }
+        public int IndustryId { get; set; }
         public virtual Industry? Industry { get; set; }
+        public DateTime DateCreatead { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }
