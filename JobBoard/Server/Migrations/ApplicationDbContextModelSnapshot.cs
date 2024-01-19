@@ -238,7 +238,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dafacbf0-8d33-4ddd-854b-e92f86eb0c70",
+                            ConcurrencyStamp = "0f964124-667f-4423-933c-57363d282d9d",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,9 +246,9 @@ namespace JobBoard.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELYKF2tXNNlCf5+Kxi8xH6GREEHlb1LM2sbT7UlBWBHbjJ/nxhi3gEPUkxdbMmg5yg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFQH5DiZYkFNlX+YghflLctf4xe6x9kPQugzonAhzacdL9fsdEufR2pfi3BkjoFMtQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ad57ae9e-9ce4-464b-b790-d0416d67e80b",
+                            SecurityStamp = "176973e0-3380-4169-b79a-5332f0b81ba0",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -580,7 +580,7 @@ namespace JobBoard.Server.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateCreatead")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
@@ -629,7 +629,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreatead = new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateUpdated = new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmployerId = 1,
                             IndustryId = 1,
@@ -646,7 +646,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreatead = new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateUpdated = new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmployerId = 2,
                             IndustryId = 2,
@@ -675,7 +675,7 @@ namespace JobBoard.Server.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateCreatead")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
@@ -763,7 +763,7 @@ namespace JobBoard.Server.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateCreatead")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")

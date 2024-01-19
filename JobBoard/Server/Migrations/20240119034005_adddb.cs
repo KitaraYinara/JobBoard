@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobBoard.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class adddbwithdefault : Migration
+    public partial class adddb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -339,7 +339,7 @@ namespace JobBoard.Server.Migrations
                     J_Urgency = table.Column<bool>(type: "bit", nullable: false),
                     EmployerId = table.Column<int>(type: "int", nullable: false),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
-                    DateCreatead = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -405,7 +405,7 @@ namespace JobBoard.Server.Migrations
                     JA_Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
-                    DateCreatead = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -438,7 +438,7 @@ namespace JobBoard.Server.Migrations
                     Src_Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
-                    DateCreatead = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -481,7 +481,7 @@ namespace JobBoard.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "dafacbf0-8d33-4ddd-854b-e92f86eb0c70", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAELYKF2tXNNlCf5+Kxi8xH6GREEHlb1LM2sbT7UlBWBHbjJ/nxhi3gEPUkxdbMmg5yg==", null, false, "ad57ae9e-9ce4-464b-b790-d0416d67e80b", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "0f964124-667f-4423-933c-57363d282d9d", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEFQH5DiZYkFNlX+YghflLctf4xe6x9kPQugzonAhzacdL9fsdEufR2pfi3BkjoFMtQ==", null, false, "176973e0-3380-4169-b79a-5332f0b81ba0", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Industries",
@@ -524,7 +524,7 @@ namespace JobBoard.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Jobs",
-                columns: new[] { "Id", "CreatedBy", "DateCreatead", "DateUpdated", "EmployerId", "IndustryId", "J_Description", "J_Location", "J_Name", "J_Salary", "J_Skills", "J_Type", "J_Urgency", "UpdatedBy" },
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "EmployerId", "IndustryId", "J_Description", "J_Location", "J_Name", "J_Salary", "J_Skills", "J_Type", "J_Urgency", "UpdatedBy" },
                 values: new object[,]
                 {
                     { 1, "System", new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.", "Red Swastika School Singapore", "Part-Time Teacher", 11, "Communication, Leadership, Critical Thinking, Time Management", "Part-Time", false, "System" },

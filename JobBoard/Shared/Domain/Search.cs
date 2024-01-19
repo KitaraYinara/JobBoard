@@ -15,7 +15,7 @@ namespace JobBoard.Shared.Domain
         public virtual Job? Job { get; set; }
         public int ApplicantId { get; set; }
         public virtual Applicant? Applicant { get; set; }
-        public DateTime DateCreatead { get; set; }
+        public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
     }
 }

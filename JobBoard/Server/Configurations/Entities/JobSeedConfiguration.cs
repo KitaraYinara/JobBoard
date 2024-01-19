@@ -21,7 +21,7 @@ namespace JobBoard.Server.Configurations.Entities
                  J_Urgency = false,
                  EmployerId = 1,
                  IndustryId = 1,
-                 DateCreatead = new DateTime(2017, 08, 25),
+                 DateCreated = new DateTime(2017, 08, 25),
                  DateUpdated = new DateTime(2017, 08, 25),
                  CreatedBy = "System",
                  UpdatedBy = "System"
@@ -38,7 +38,7 @@ namespace JobBoard.Server.Configurations.Entities
                 J_Urgency = false,
                 EmployerId = 2,
                 IndustryId = 2,
-                DateCreatead = new DateTime(2015, 06, 20),
+                DateCreated = new DateTime(2015, 06, 20),
                 DateUpdated = new DateTime(2015, 06, 20),
                 CreatedBy = "System",
                 UpdatedBy = "System"

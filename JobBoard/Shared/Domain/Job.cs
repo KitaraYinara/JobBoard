@@ -19,7 +19,7 @@ namespace JobBoard.Shared.Domain
         public virtual Employer? Employer { get; set; }
         public int IndustryId { get; set; }
         public virtual Industry? Industry { get; set; }
-        public DateTime DateCreatead { get; set; }
+        public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
     }
 }

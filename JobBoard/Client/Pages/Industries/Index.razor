@@ -1,0 +1,63 @@
+﻿@page "/industries/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+@if (Industries == null)
+{
+    <div class="alert alert-info">Loading Industries...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var industry in Industries)
+            {
+                <tr>
+                    <td>@industry.I_Type</td>
+                    <td>
+                        <a href="/industries/view/@industry.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/industries/edit/@industry.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(industry.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Industry>? Industries;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Industries = await _client.GetFromJsonAsync<List<Industry>>($"{Endpoints.IndustriesEndpoint}");
+    }
+
+    async Task Delete(int industryid)
+    {
+        if (Industries != null)
+        {
+            var industry = Industries.First(q => q.Id == industryid);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {industry.I_Type}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.AdminsEndpoint}/{industryid}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}

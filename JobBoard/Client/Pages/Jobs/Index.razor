@@ -1,0 +1,84 @@
+﻿@page "/jobs/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+@if (Jobs == null)
+{
+    <div class="alert alert-info">Loading Jobs...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Salary($)</th>
+                <th>Type</th>
+                <th>Skill</th>
+                <th>Urgency</th>
+                <th>Employer</th>
+                <th>Industry</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Jobs)
+            {
+                <tr>
+                    <td>@job.J_Name</td>
+                    <td>@job.J_Location</td>
+                    <td>@job.J_Description</td>
+                    <td>@job.J_Salary</td>
+                    <td>@job.J_Type</td>
+                    <td>@job.J_Skills</td>
+                    <td>@job.J_Urgency</td>
+                    <td>@job.Employer.E_Name</td>
+                    <td>@job.Industry.I_Type</td>
+                    <td>@job.DateCreated</td>
+                    <td>@job.DateUpdated</td>
+                    <td>
+                        <a href="/jobs/view/@job.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/jobs/edit/@job.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(job.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Job>? Jobs;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+    }
+
+    async Task Delete(int jobid)
+    {
+        if (Jobs != null)
+        {
+            var job = Jobs.First(q => q.Id == jobid);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {job.J_Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.JobsEndpoint}/{jobid}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
+

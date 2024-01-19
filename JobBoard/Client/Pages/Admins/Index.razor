@@ -1,0 +1,73 @@
+﻿@page "/admins/"
+@inject HttpClient _client 
+@inject IJSRuntime js
+@attribute [Authorize]
+
+@if (Admins == null)
+{
+    <div class="alert alert-info">Loading Admins...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Age</th>
+                <th>Mobile</th>
+                <th>Date Of Birth</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Admins)
+            {
+                <tr>
+                    <td>@admin.Ad_Name</td>
+                    <td>@admin.Ad_Email</td>
+                    <td>@admin.Ad_Password</td>
+                    <td>@admin.Ad_Age</td>
+                    <td>@admin.Ad_Mobile</td>
+                    <td>@admin.Ad_DateOfBirth</td>
+                    <td>
+                        <a href="/admins/view/@admin.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/admins/edit/@admin.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(admin.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Admin>? Admins;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Admins = await _client.GetFromJsonAsync<List<Admin>>($"{Endpoints.AdminsEndpoint}");
+    }
+
+    async Task Delete(int adminid)
+    {
+        if (Admins != null)
+        {
+            var admin = Admins.First(q => q.Id == adminid);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {admin.Ad_Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.AdminsEndpoint}/{adminid}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
