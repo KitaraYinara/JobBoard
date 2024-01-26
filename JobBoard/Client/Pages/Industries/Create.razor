@@ -2,8 +2,23 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 <h3 class="card-title"> New Industry</h3>
+<hr />
 <br />
-<FormComponent ButtonText="Create Industry" industry="industry" OnValidSubmit="@CreateIndustry" />
+<EditForm Model="@industry" OnValidSubmit="CreateIndustry">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label> Name: </label>
+        <div>
+            <InputText @bind-Value="@industry.I_Type" class="form-control" />
+            <ValidationMessage For="@(() =>industry.I_Type)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Create Industry
+    </button>
+</EditForm>
 @code {
     Industry industry = new Industry();
 

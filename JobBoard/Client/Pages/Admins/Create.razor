@@ -2,8 +2,58 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 <h3 class="card-title"> New admins</h3>
+<hr />
 <br />
-<FormComponent ButtonText="Create Admin" admin="admin" OnValidSubmit="@CreateAdmin" />
+<EditForm Model="@admin" OnValidSubmit="CreateAdmin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+    <div class="form-group">
+            <label> Name: </label>
+            <div>
+                <InputText @bind-Value="@admin.Ad_Name" class="form-control" />
+                <ValidationMessage For="@(() =>admin.Ad_Name)" />
+            </div>
+    </div>
+    <div class="form-group">
+        <label> Email: </label>
+        <div>
+            <InputText @bind-Value="@admin.Ad_Email" class="form-control" />
+            <ValidationMessage For="@(() =>admin.Ad_Email)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Password: </label>
+        <div>
+            <InputText @bind-Value="@admin.Ad_Password" class="form-control" />
+            <ValidationMessage For="@(() =>admin.Ad_Password)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Age: </label>
+        <div>
+            <InputNumber @bind-Value="@admin.Ad_Age" class="form-control" />
+            <ValidationMessage For="@(() =>admin.Ad_Age)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Mobile Phone: </label>
+        <div>
+            <InputText @bind-Value="@admin.Ad_Mobile" class="form-control" />
+            <ValidationMessage For="@(() =>admin.Ad_Mobile)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Date of Birth(DOB): </label>
+        <div>
+            <InputDate @bind-Value="@admin.Ad_DateOfBirth" class="form-control" />
+            <ValidationMessage For="@(() =>admin.Ad_DateOfBirth)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Create Admin
+    </button>
+</EditForm>
 @code {
     Admin admin = new Admin();
 
