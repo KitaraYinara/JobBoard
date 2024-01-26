@@ -3,6 +3,11 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
+<a href="/jobs/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Add New Jobs
+</a>
+
 @if (Jobs == null)
 {
     <div class="alert alert-info">Loading Jobs...</div>
@@ -18,9 +23,9 @@ else
                 <th>Salary($)</th>
                 <th>Type</th>
                 <th>Skill</th>
-                <th>Urgency</th>
                 <th>Employer</th>
                 <th>Industry</th>
+                <th>Urgency</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
                 <th>Actions</th>
@@ -36,9 +41,9 @@ else
                     <td>@job.J_Salary</td>
                     <td>@job.J_Type</td>
                     <td>@job.J_Skills</td>
-                    <td>@job.J_Urgency</td>
                     <td>@job.Employer.E_Name</td>
                     <td>@job.Industry.I_Type</td>
+                    <td>@job.J_Urgency</td>
                     <td>@job.DateCreated</td>
                     <td>@job.DateUpdated</td>
                     <td>

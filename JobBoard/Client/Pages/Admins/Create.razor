@@ -1,0 +1,22 @@
+﻿@page "/admins/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New admins</h3>
+<br />
+<FormComponent ButtonText="Create Admin" admin="admin" OnValidSubmit="@CreateAdmin" />
+@code {
+    Admin admin = new Admin();
+
+    private IList<Admin>? Admins;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Admins = await _client.GetFromJsonAsync<List<Admin>>($"{Endpoints.AdminsEndpoint}");
+    }
+
+    private async Task CreateAdmin()
+    {
+        await _client.PostAsJsonAsync(Endpoints.AdminsEndpoint, admin);
+        _navManager.NavigateTo("/admins/");
+    }
+}

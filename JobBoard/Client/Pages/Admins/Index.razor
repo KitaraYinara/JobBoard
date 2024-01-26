@@ -1,8 +1,13 @@
 ﻿@page "/admins/"
-@inject HttpClient _client 
+@inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-
+<a href="/admins/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Admin
+</a>
+<br />
+<br />
 @if (Admins == null)
 {
     <div class="alert alert-info">Loading Admins...</div>

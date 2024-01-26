@@ -1,0 +1,24 @@
+﻿@page "/companies/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New companies</h3>
+<br />
+<FormComponent ButtonText="Create Company" company="company" OnValidSubmit="@CreateCompany" />
+@code {
+    Company company = new Company();
+
+    private IList<Company>? Companies;
+    private IList<Admin>? Admins;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Companies = await _client.GetFromJsonAsync<List<Company>>($"{Endpoints.CompaniesEndpoint}");
+        Admins = await _client.GetFromJsonAsync<List<Admin>>($"{Endpoints.AdminsEndpoint}");
+    }
+
+    private async Task CreateCompany()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CompaniesEndpoint, company);
+        _navManager.NavigateTo("/companies/");
+    }
+}

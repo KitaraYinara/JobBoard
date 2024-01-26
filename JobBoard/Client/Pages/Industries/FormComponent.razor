@@ -1,0 +1,29 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@industry" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Name: </label>
+            <div>
+                <InputText @bind-Value="@industry.I_Type" class="form-control" />
+                <ValidationMessage For="@(() =>industry.I_Type)" />
+            </div>
+        </div>
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            Create Industry
+        </button>
+    }
+    <BackToList Target="industries" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Industry? industry { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

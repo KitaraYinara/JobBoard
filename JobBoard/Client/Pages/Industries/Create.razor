@@ -1,0 +1,22 @@
+﻿@page "/industries/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New Industry</h3>
+<br />
+<FormComponent ButtonText="Create Industry" industry="industry" OnValidSubmit="@CreateIndustry" />
+@code {
+    Industry industry = new Industry();
+
+    private IList<Industry>? Industries;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Industries = await _client.GetFromJsonAsync<List<Industry>>($"{Endpoints.IndustriesEndpoint}");
+    }
+
+    private async Task CreateIndustry()
+    {
+        await _client.PostAsJsonAsync(Endpoints.IndustriesEndpoint, industry);
+        _navManager.NavigateTo("/industries/");
+    }
+}

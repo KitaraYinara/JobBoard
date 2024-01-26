@@ -2,8 +2,79 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-<h3>Index</h3>
+<a href="/applicants/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Applicants
+</a>
+<br />
+<br />
+@if (Applicants == null)
+{
+    <div class="alert alert-info">Loading Applicants...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Age</th>
+                <th>Mobile</th>
+                <th>Date Of Birth</th>
+                <th>Referral</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var applicant in Applicants)
+            {
+                <tr>
+                    <td>@applicant.A_Name</td>
+                    <td>@applicant.A_Email</td>
+                    <td>@applicant.A_Password</td>
+                    <td>@applicant.A_Age</td>
+                    <td>@applicant.A_Mobile</td>
+                    <td>@applicant.A_DateOfBirth</td>
+                    <td>@applicant.A_ReferralLink</td>
+                    <td>
+                        <a href="/applicants/view/@applicant.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/applicants/edit/@applicant.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(applicant.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
 
 @code {
+    private List<Applicant>? Applicants;
 
+    protected async override Task OnInitializedAsync()
+    {
+        Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+    }
+
+    async Task Delete(int applicantid)
+    {
+        if (Applicants != null)
+        {
+            var applicant = Applicants.First(q => q.Id == applicantid);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {applicant.A_Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.ApplicantsEndpoint}/{applicantid}");
+                await OnInitializedAsync();
+            }
+        }
+    }
 }

@@ -3,6 +3,11 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
+<a href="/companies/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Company
+</a>
+
 @if (Companies == null)
 {
     <div class="alert alert-info">Loading Companies...</div>
@@ -15,7 +20,7 @@ else
                 <th>Name</th>
                 <th>Address</th>
                 <th>About</th>
-                <th>Admin</th>
+                <th>Created By</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -61,7 +66,7 @@ else
             var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {company.C_Name}?");
             if (confirm)
             {
-                await _client.DeleteAsync($"{Endpoints.AdminsEndpoint}/{companyid}");
+                await _client.DeleteAsync($"{Endpoints.CompaniesEndpoint}/{companyid}");
                 await OnInitializedAsync();
             }
         }
