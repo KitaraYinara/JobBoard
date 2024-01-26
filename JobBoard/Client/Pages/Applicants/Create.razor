@@ -1,0 +1,79 @@
+﻿@page "/applicants/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New applicants</h3>
+<hr />
+<br />
+<EditForm Model="@applicant" OnValidSubmit="CreateApplicant">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label> Name: </label>
+        <div>
+            <InputText @bind-Value="@applicant.A_Name" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Email: </label>
+        <div>
+            <InputText @bind-Value="@applicant.A_Email" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_Email)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Password: </label>
+        <div>
+            <InputText @bind-Value="@applicant.A_Password" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_Password)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Age: </label>
+        <div>
+            <InputNumber @bind-Value="@applicant.A_Age" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_Age)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Mobile Phone: </label>
+        <div>
+            <InputText @bind-Value="@applicant.A_Mobile" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_Mobile)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Date of Birth(DOB): </label>
+        <div>
+            <InputDate @bind-Value="@applicant.A_DateOfBirth" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_DateOfBirth)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Referrals: </label>
+        <div>
+            <InputText @bind-Value="@applicant.A_ReferralLink" class="form-control" />
+            <ValidationMessage For="@(() =>applicant.A_ReferralLink)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Create Applicant
+    </button>
+</EditForm>
+@code {
+    Applicant applicant = new Applicant();
+
+    private IList<Applicant>? Applicants;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+    }
+
+    private async Task CreateApplicant()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ApplicantsEndpoint, applicant);
+        _navManager.NavigateTo("/applicants/");
+    }
+}

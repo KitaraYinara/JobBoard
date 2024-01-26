@@ -1,0 +1,69 @@
+﻿@page "/companies/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New companies</h3>
+<hr />
+<br />
+<EditForm Model="@company" OnValidSubmit="CreateApplicant">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label> Name: </label>
+        <div>
+            <InputText @bind-Value="@company.C_Name" class="form-control" />
+            <ValidationMessage For="@(() =>company.C_Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Address: </label>
+        <div>
+            <InputText @bind-Value="@company.C_Address" class="form-control" />
+            <ValidationMessage For="@(() =>company.C_Address)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Description: </label>
+        <div>
+            <InputText @bind-Value="@company.C_About" class="form-control" />
+            <ValidationMessage For="@(() =>company.C_About)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Created By: </label>
+        <div>
+            <InputSelect @bind-Value="@company.AdminId" class="form-control">
+            <option value="">-- Select Customer --</option>
+            @if (Admins != null)
+            {
+                foreach (var admin in Admins)
+                {
+            <option value="@admin.Id">@admin.Ad_Name - @admin.Ad_Mobile </option>
+                }
+            }
+            </InputSelect>
+            <ValidationMessage For="@(() =>company.AdminId)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Create Company
+    </button>
+</EditForm>
+@code {
+    Company company = new Company();
+
+    private IList<Company>? Companies;
+    private IList<Admin>? Admins;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Companies = await _client.GetFromJsonAsync<List<Company>>($"{Endpoints.CompaniesEndpoint}");
+        Admins = await _client.GetFromJsonAsync<List<Admin>>($"{Endpoints.AdminsEndpoint}");
+    }
+
+    private async Task CreateApplicant()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CompaniesEndpoint, company);
+        _navManager.NavigateTo("/companies/");
+    }
+}

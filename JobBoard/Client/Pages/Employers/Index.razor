@@ -3,6 +3,10 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
+<a href="/employers/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Employer
+</a>
 @if (Employers == null)
 {
     <div class="alert alert-info">Loading Employers...</div>
@@ -67,7 +71,7 @@ else
             var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {employer.E_Name}?");
             if (confirm)
             {
-                await _client.DeleteAsync($"{Endpoints.AdminsEndpoint}/{employerid}");
+                await _client.DeleteAsync($"{Endpoints.EmployersEndpoint}/{employerid}");
                 await OnInitializedAsync();
             }
         }

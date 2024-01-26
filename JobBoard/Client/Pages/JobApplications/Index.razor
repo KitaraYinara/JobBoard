@@ -2,8 +2,79 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-<h3>Index</h3>
+
+<a href="/jobapplications/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Job Application
+</a>
+@if (JobApplications == null)
+{
+    <div class="alert alert-info">Loading Jobapplications...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>Applicant</th>
+                <th>Cover Letter</th>
+                <th>Resume</th>
+                <th>Portfolio</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var jobapplication in JobApplications)
+            {
+                <tr>
+                    <td>@jobapplication.Job.J_Name</td>
+                    <td>@jobapplication.Applicant.A_Name</td>
+                    <td>@jobapplication.JA_CoverLetter</td>
+                    <td>@jobapplication.JA_Resume</td>
+                    <td>@jobapplication.JA_Portfolio</td>
+                    <td>@jobapplication.JA_Status</td>
+                    <td>
+                        <a href="/jobapplications/view/@jobapplication.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/jobapplications/edit/@jobapplication.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(jobapplication.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
 
 @code {
+    private List<JobApplication>? JobApplications;
+    private List<Job>? Jobs;
 
+    protected async override Task OnInitializedAsync()
+    {
+        JobApplications = await _client.GetFromJsonAsync<List<JobApplication>>($"{Endpoints.JobApplicationsEndpoint}");
+        Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+    }
+
+    async Task Delete(int jobapplicationid)
+    {
+        if (JobApplications != null)
+        {
+            var jobapplication = JobApplications.First(q => q.Id == jobapplicationid);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {jobapplication.JobId}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.JobApplicationsEndpoint}/{jobapplicationid}");
+                await OnInitializedAsync();
+            }
+        }
+    }
 }
+

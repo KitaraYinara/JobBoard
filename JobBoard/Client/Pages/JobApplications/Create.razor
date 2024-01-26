@@ -1,0 +1,93 @@
+﻿@page "/jobapplications/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3 class="card-title"> New jobapplications</h3>
+<hr />
+<br />
+<EditForm Model="@jobapplication" OnValidSubmit="CreateJobApplication">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label>Job: </label>
+        <div>
+            <InputSelect @bind-Value="@jobapplication.JobId" class="form-control">
+                <option value="">-- Select Job --</option>
+                @if (Jobs != null)
+                {
+                    foreach (var job in Jobs)
+                    {
+                        <option value="@job.Id">@job.J_Name </option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() =>jobapplication.JobId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Applicant </label>
+        <div>
+            <InputSelect @bind-Value="@jobapplication.ApplicantId" class="form-control">
+                <option value="">-- Select Applicant --</option>
+                @if (Applicants != null)
+                {
+                    foreach (var applicant in Applicants)
+                    {
+                        <option value="@applicant.Id">@applicant.A_Name </option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() =>jobapplication.JobId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Cover Letter: </label>
+        <div>
+            <InputText @bind-Value="@jobapplication.JA_CoverLetter" class="form-control" />
+            <ValidationMessage For="@(() =>jobapplication.JA_CoverLetter)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Resume: </label>
+        <div>
+            <InputText @bind-Value="@jobapplication.JA_Resume" class="form-control" />
+            <ValidationMessage For="@(() =>jobapplication.JA_Resume)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Portfolio: </label>
+        <div>
+            <InputText @bind-Value="@jobapplication.JA_Portfolio" class="form-control" />
+            <ValidationMessage For="@(() =>jobapplication.JA_Portfolio)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Status: </label>
+        <div>
+            <InputText @bind-Value="@jobapplication.JA_Status" class="form-control" />
+            <ValidationMessage For="@(() =>jobapplication.JA_Status)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Create JobApplication
+    </button>
+</EditForm>
+@code {
+    JobApplication jobapplication = new JobApplication();
+
+    private IList<Job>? Jobs;
+    private IList<JobApplication>? JobApplications;
+    private IList<Applicant>? Applicants;
+
+    protected async override Task OnInitializedAsync()
+    {
+        JobApplications = await _client.GetFromJsonAsync<List<JobApplication>>($"{Endpoints.JobApplicationsEndpoint}");
+        Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+        Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+    }
+
+    private async Task CreateJobApplication()
+    {
+        await _client.PostAsJsonAsync(Endpoints.JobApplicationsEndpoint, jobapplication);
+        _navManager.NavigateTo("/jobapplications/");
+    }
+}
