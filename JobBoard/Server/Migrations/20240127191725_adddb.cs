@@ -19,11 +19,11 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ad_Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ad_Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ad_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Ad_Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ad_Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Ad_Age = table.Column<int>(type: "int", nullable: false),
-                    Ad_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ad_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ad_DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -39,11 +39,11 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    A_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    A_Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    A_Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    A_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    A_Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    A_Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     A_Age = table.Column<int>(type: "int", nullable: false),
-                    A_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    A_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     A_DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     A_ReferralLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -120,7 +120,7 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    I_Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    I_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -173,9 +173,9 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    C_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    C_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    C_About = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    C_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    C_Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    C_About = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -303,11 +303,11 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    E_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    E_Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    E_Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    E_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    E_Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    E_Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     E_Age = table.Column<int>(type: "int", nullable: false),
-                    E_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    E_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     E_DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -330,12 +330,12 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    J_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    J_Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    J_Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    J_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    J_Location = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    J_Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     J_Salary = table.Column<int>(type: "int", nullable: false),
-                    J_Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    J_Skills = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    J_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    J_Skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     J_Urgency = table.Column<bool>(type: "bit", nullable: false),
                     EmployerId = table.Column<int>(type: "int", nullable: false),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
@@ -367,9 +367,9 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    M_Sender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    M_Recipient = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    M_Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    M_Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    M_Recipient = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    M_Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     M_TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployerId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
@@ -399,10 +399,10 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JA_CoverLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JA_Resume = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JA_Portfolio = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JA_Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JA_CoverLetter = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JA_Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JA_Portfolio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JA_Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -433,9 +433,9 @@ namespace JobBoard.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Src_Job_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Src_Job_Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Src_Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Src_Job_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Src_Job_Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Src_Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -481,7 +481,7 @@ namespace JobBoard.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "0f964124-667f-4423-933c-57363d282d9d", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEFQH5DiZYkFNlX+YghflLctf4xe6x9kPQugzonAhzacdL9fsdEufR2pfi3BkjoFMtQ==", null, false, "176973e0-3380-4169-b79a-5332f0b81ba0", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "ca5950f7-f27f-4a9a-b6e6-21f8357da8c8", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMXf7LZScmHm3yuZmz8O3smDeNgoymwIhdpt0SSUqP7WN7YicaaUeNWCE5yJ4Z/5tQ==", null, false, "8aa859c9-91c9-40f3-8d64-df05a2d8a10b", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Industries",

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobBoard.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119034005_adddb")]
+    [Migration("20240127191725_adddb")]
     partial class adddb
     {
         /// <inheritdoc />
@@ -241,7 +241,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f964124-667f-4423-933c-57363d282d9d",
+                            ConcurrencyStamp = "ca5950f7-f27f-4a9a-b6e6-21f8357da8c8",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -249,9 +249,9 @@ namespace JobBoard.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFQH5DiZYkFNlX+YghflLctf4xe6x9kPQugzonAhzacdL9fsdEufR2pfi3BkjoFMtQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMXf7LZScmHm3yuZmz8O3smDeNgoymwIhdpt0SSUqP7WN7YicaaUeNWCE5yJ4Z/5tQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "176973e0-3380-4169-b79a-5332f0b81ba0",
+                            SecurityStamp = "8aa859c9-91c9-40f3-8d64-df05a2d8a10b",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -272,16 +272,22 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Ad_Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ad_Mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ad_Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Ad_Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -335,16 +341,22 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("A_Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("A_Mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("A_Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("A_Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("A_ReferralLink")
                         .HasColumnType("nvarchar(max)");
@@ -368,17 +380,23 @@ namespace JobBoard.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdminId")
+                    b.Property<int?>("AdminId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("C_About")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("C_Address")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("C_Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -423,7 +441,8 @@ namespace JobBoard.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -436,16 +455,22 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("E_Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("E_Mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("E_Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("E_Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -497,6 +522,7 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("I_Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -589,28 +615,37 @@ namespace JobBoard.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployerId")
+                    b.Property<int?>("EmployerId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("IndustryId")
+                    b.Property<int?>("IndustryId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("J_Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("J_Location")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("J_Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("J_Salary")
                         .HasColumnType("int");
 
                     b.Property<string>("J_Skills")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("J_Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("J_Urgency")
@@ -672,7 +707,8 @@ namespace JobBoard.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicantId")
+                    b.Property<int?>("ApplicantId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -685,18 +721,23 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("JA_CoverLetter")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JA_Portfolio")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JA_Resume")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JA_Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobId")
+                    b.Property<int?>("JobId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -729,12 +770,15 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("M_Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("M_Recipient")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("M_Sender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("M_TimeStamp")
@@ -760,7 +804,8 @@ namespace JobBoard.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicantId")
+                    b.Property<int?>("ApplicantId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -772,16 +817,20 @@ namespace JobBoard.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JobId")
+                    b.Property<int?>("JobId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Src_Job_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Src_Job_Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Src_Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")

@@ -1,0 +1,15 @@
+﻿@page "/admins/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>View</h3>
+<FormComponent admin="admin" Disabled="true" />
+@code {
+    [Parameter] public int id { get; set; }
+    Admin? admin = new Admin();
+    protected async override Task OnParametersSetAsync()
+    {
+        admin = await
+       _client.GetFromJsonAsync<Admin>($"{Endpoints.AdminsEndpoint}/{id}");
+    }
+}
+

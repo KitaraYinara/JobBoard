@@ -32,6 +32,7 @@ namespace AdminBoard.Server.Controllers
         //public async Task<ActionResult<IEnumerable<Admin>>> GetAdmins()
         public async Task<IActionResult> GetAdmins()
         {
+
             //if (_context.Admins == null)
             //{
             //    return NotFound();

@@ -1,6 +1,8 @@
 ﻿@page "/admins/"
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 @attribute [Authorize]
 <a href="/admins/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -14,7 +16,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="adminsTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -59,6 +61,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Admins = await _client.GetFromJsonAsync<List<Admin>>($"{Endpoints.AdminsEndpoint}");
     }
 
@@ -74,5 +77,16 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#adminsTable");
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#adminsTable");
     }
 }

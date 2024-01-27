@@ -1,5 +1,7 @@
 ﻿@page "/companies/"
 @inject HttpClient _client
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 @inject IJSRuntime js
 @attribute [Authorize]
 
@@ -14,7 +16,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="companiesTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -70,5 +72,15 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#companiesTable");
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#companiesTable");
     }
 }

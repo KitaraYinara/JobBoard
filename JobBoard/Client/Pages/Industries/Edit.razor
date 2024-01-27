@@ -1,0 +1,23 @@
+﻿@page "/industries/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>Edit Industry</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditIndustry" industry="industry" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Industry? industry = new Industry();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        industry = await _client.GetFromJsonAsync<Industry>($"{Endpoints.IndustriesEndpoint}/{id}");
+    }
+
+    async Task EditIndustry()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.IndustriesEndpoint}/{id}", industry);
+        _navManager.NavigateTo("/industries/");
+    }
+}
+
