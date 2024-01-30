@@ -3,66 +3,79 @@
 @inject IJSRuntime js
 @inject HttpInterceptorService _interceptor
 @implements IDisposable
+@inject NavigationManager _navManager
 @attribute [Authorize]
-<a href="/messages/create" class="btn btn-secondary">
-    <span class="oi oi-plus"></span>
-    Create New Messages
-</a>
-<br />
-<br />
-@if (Messages == null)
-{
-    <div class="alert alert-info">Loading Messages...</div>
-}
-else
-{
-    <table class="table table-responsive" id="messagesTable">
-        <thead>
-            <tr>
-                <th>Message</th>
-                <th>To:</th>
-                <th>From:</th>
-                <th>At:</th>
-                <th>Employer</th>
-                <th>Applicant</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var message in Messages)
-            {
-                <tr>
-                    <td>@message.M_Content</td>
-                    <td>@message.M_Recipient</td>
-                    <td>@message.M_Sender</td>
-                    <td>@message.M_TimeStamp</td>
-                    <td>@message.Employer.E_Email</td>
-                    <td>@message.Applicant.A_Email</td>
-                    <td>
-                        <a href="/messages/view/@message.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/messages/edit/@message.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(message.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
 
-        </tbody>
-    </table>
-}
+<div class="container">
+    <div class="row">
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (Messages == null)
+            {
+                <div class="alert alert-info">Loading Messages...</div>
+            }
+            else
+            {
+                <Style />
+                <div class="message-container">
+                    @foreach (var message in Messages)
+                    {
+                        <div class="message @GetMessageClass(message.M_Sender)">
+                            <div class="message-sender">@message.M_Sender:</div>
+                            <div class="message-content">@message.M_Content</div>
+                            <div class="message-time">@message.M_TimeStamp</div>
+                            <div class="message-buttons d-flex justify-content-end">
+                                <div class="button-container">
+                                    <a href="/messages/view/@message.Id" class="btn btn-primary">
+                                        <span class="oi oi-book"></span>
+                                    </a>
+                                    <a href="/messages/edit/@message.Id" class="btn btn-warning">
+                                        <span class="oi oi-pencil"></span>
+                                    </a>
+                                    <button class="btn btn-danger" @onclick="@(()=>Delete(message.Id))">
+                                        <span class="oi oi-delete"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <a href="/messages/create" class="btn btn-secondary">
+            <span class="oi oi-plus"></span>
+            Create new Messages
+        </a>
+    </div>
+</div>
 
 @code {
-    private List<Message>? Messages;
+    private IList<Message>? Messages;
+
 
     protected async override Task OnInitializedAsync()
     {
         Messages = await _client.GetFromJsonAsync<List<Message>>($"{Endpoints.MessagesEndpoint}");
     }
 
+    private string GetMessageClass(string sender)
+    {
+        // Adjust this logic based on your requirements
+        return sender == "CurrentUser" ? "sender-message" : "recipient-message";
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#messagesTable");
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#messagesTable");
+    }
     async Task Delete(int messageid)
     {
         if (Messages != null)
@@ -75,15 +88,5 @@ else
                 await OnInitializedAsync();
             }
         }
-    }
-    public void Dispose()
-    {
-        _interceptor.DisposeEvent();
-        js.InvokeVoidAsync("DataTablesDispose", "#messagesTable");
-    }
-
-    protected async override Task OnAfterRenderAsync(bool firstRender)
-    {
-        await js.InvokeVoidAsync("AddDataTable", "#messagesTable");
     }
 }
