@@ -3,7 +3,9 @@
 @inject NavigationManager _navManager
 <h3 class="card-title"> New jobapplications</h3>
 <br />
+ 
 <FormComponent ButtonText="Create JobApplication" jobapplication="jobapplication" OnValidSubmit="@CreateJobApplication" />
+
 @code {
     JobApplication jobapplication = new JobApplication();
 
