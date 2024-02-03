@@ -4,7 +4,11 @@
 @inject HttpInterceptorService _interceptor
 @implements IDisposable
 @attribute [Authorize]
-
+<style>
+    .button_formatting{
+        display: flex;
+    }
+</style>
 <a href="/jobs/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Add New Jobs
@@ -19,7 +23,7 @@ else
     <table class="table table-responsive" id="jobsTable">
         <thead>
             <tr>
-                <th>Name</th>
+              @*   <th>Name</th>
                 <th>Location</th>
                 <th>Description</th>
                 <th>Salary($)</th>
@@ -30,14 +34,72 @@ else
                 <th>Urgency</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
-                <th>Actions</th>
+                <th>Actions</th> *@
+                <th>Jobs</th>
+                <th>Hot Jobs</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var job in Jobs)
             {
                 <tr>
-                    <td>@job.J_Name</td>
+                    <td>
+                        <div>
+                            @if (job.J_Urgency == false)
+                            {
+                                @job.J_Name
+                                <br />
+                                @job.J_Location
+                                <br />
+                                @job.J_Salary
+                                <br />
+                                @job.J_Type
+                                <br />
+                                @job.Industry.I_Type
+                                <br />
+                                <div class="button_formatting">
+                                    <a href="/jobs/view/@job.Id" class="btn btn-primary">
+                                        <span class="oi oi-book"></span>
+                                    </a>
+                                    <a href="/jobs/edit/@job.Id" class="btn btn-warning">
+                                        <span class="oi oi-pencil"></span>
+                                    </a>
+                                    <button class="btn btn-danger" @onclick="@(()=>Delete(job.Id))">
+                                        <span class="oi oi-delete"></span>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @if (job.J_Urgency == true)
+                            {
+                                @job.J_Name
+                                <br />
+                                @job.J_Location
+                                <br />
+                                @job.J_Salary
+                                <br />
+                                @job.J_Type
+                                <br />
+                                @job.Industry.I_Type
+                                <br />
+                                <div class="button_formatting">
+                                    <a href="/jobs/view/@job.Id" class="btn btn-primary">
+                                        <span class="oi oi-book"></span>
+                                    </a>
+                                    <a href="/jobs/edit/@job.Id" class="btn btn-warning">
+                                        <span class="oi oi-pencil"></span>
+                                    </a>
+                                    <button class="btn btn-danger" @onclick="@(()=>Delete(job.Id))">
+                                        <span class="oi oi-delete"></span>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    @* <td>@job.J_Name</td>
                     <td>@job.J_Location</td>
                     <td>@job.J_Description</td>
                     <td>@job.J_Salary</td>
@@ -58,10 +120,9 @@ else
                         <button class="btn btn-danger" @onclick="@(()=>Delete(job.Id))">
                             <span class="oi oi-delete"></span>
                         </button>
-                    </td>
+                    </td> *@
                 </tr>
             }
-
         </tbody>
     </table>
 }
@@ -73,6 +134,8 @@ else
     {
         Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
     }
+    
+
 
     async Task Delete(int jobid)
     {

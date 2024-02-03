@@ -14,12 +14,15 @@
     protected async override Task OnInitializedAsync()
     {
         Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+        job.DateCreated = DateTime.Now;
+        job.DateUpdated = DateTime.Now;
         Industries = await _client.GetFromJsonAsync<List<Industry>>($"{Endpoints.IndustriesEndpoint}");
         Employers = await _client.GetFromJsonAsync<List<Employer>>($"{Endpoints.EmployersEndpoint}");
     }
 
     private async Task CreateJob()
     {
+        
         await _client.PostAsJsonAsync(Endpoints.JobsEndpoint, job);
         _navManager.NavigateTo("/jobs/");
     }
