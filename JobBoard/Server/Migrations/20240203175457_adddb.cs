@@ -480,7 +480,7 @@ namespace JobBoard.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "3bccbec4-2df4-4d7c-927d-e8fea7b0de88", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOIZCUTUpEXwX7vLaquenp23p+EbqLMrije4XkZ+ysh/IIVqncuTZkKqZQfo+3qpzw==", null, false, "73b8534c-7d5e-4cc3-923e-8875f0c9629d", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "fa20c3bf-3864-4a31-b231-40463c04ab58", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEEnxhTeqZophEkoe7IWcJz1C3Vwi0nmD97bkaJO+N63s70LiIK+RybwBeV4OqjVm9w==", null, false, "3f238dfb-b5eb-42ae-bfe7-75bc8290a43c", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Industries",

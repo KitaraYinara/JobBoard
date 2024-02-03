@@ -11,7 +11,7 @@ namespace JobBoard.Shared.Domain
     public class Job : BaseDomainModel, IValidatableObject
     {
         [Required]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name conatins numbers")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name contains numbers")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Name is not valid")]
         public string? J_Name { get; set; }
         [Required]

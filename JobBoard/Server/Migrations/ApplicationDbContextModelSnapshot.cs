@@ -238,7 +238,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3bccbec4-2df4-4d7c-927d-e8fea7b0de88",
+                            ConcurrencyStamp = "fa20c3bf-3864-4a31-b231-40463c04ab58",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,9 +246,9 @@ namespace JobBoard.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOIZCUTUpEXwX7vLaquenp23p+EbqLMrije4XkZ+ysh/IIVqncuTZkKqZQfo+3qpzw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEnxhTeqZophEkoe7IWcJz1C3Vwi0nmD97bkaJO+N63s70LiIK+RybwBeV4OqjVm9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "73b8534c-7d5e-4cc3-923e-8875f0c9629d",
+                            SecurityStamp = "3f238dfb-b5eb-42ae-bfe7-75bc8290a43c",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

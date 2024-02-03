@@ -11,7 +11,7 @@ namespace JobBoard.Shared.Domain
     {
         [Required]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Name is not valid")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name conatins numbers")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name contains numbers")]
         public string? A_Name { get; set; }
         [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Email Address is not a vaild email")]
