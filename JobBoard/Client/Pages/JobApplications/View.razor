@@ -6,7 +6,7 @@
 @code {
     [Parameter] public int id { get; set; }
     JobApplication? jobapplication = new JobApplication();
-
+    
     protected async override Task OnParametersSetAsync()
     {
         jobapplication = await

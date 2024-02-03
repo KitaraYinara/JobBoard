@@ -1,6 +1,5 @@
 ﻿@inject HttpClient _client
 
-
 <EditForm Model="@jobapplication" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -38,11 +37,11 @@
                         </InputSelect>
                         <ValidationMessage For="@(() =>jobapplication.JobId)" />
                     </div>
-                    <div class="col-md-6">
+                    @*<div class="col-md-6">
                         <label>Status:</label>
                         <InputText @bind-Value="@jobapplication.JA_Status" class="form-control" />
                         <ValidationMessage For="@(() =>jobapplication.JA_Status)" />
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -95,6 +94,7 @@
         JobApplications = await _client.GetFromJsonAsync<List<JobApplication>>($"{Endpoints.JobApplicationsEndpoint}");
         Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
         Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+        jobapplication.JA_Status = "Not Yet Approved";
     }
 }
 
