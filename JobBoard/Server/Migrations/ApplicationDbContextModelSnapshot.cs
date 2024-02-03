@@ -238,7 +238,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca5950f7-f27f-4a9a-b6e6-21f8357da8c8",
+                            ConcurrencyStamp = "3bccbec4-2df4-4d7c-927d-e8fea7b0de88",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,9 +246,9 @@ namespace JobBoard.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMXf7LZScmHm3yuZmz8O3smDeNgoymwIhdpt0SSUqP7WN7YicaaUeNWCE5yJ4Z/5tQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOIZCUTUpEXwX7vLaquenp23p+EbqLMrije4XkZ+ysh/IIVqncuTZkKqZQfo+3qpzw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8aa859c9-91c9-40f3-8d64-df05a2d8a10b",
+                            SecurityStamp = "73b8534c-7d5e-4cc3-923e-8875f0c9629d",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -669,7 +669,7 @@ namespace JobBoard.Server.Migrations
                             EmployerId = 1,
                             IndustryId = 1,
                             J_Description = "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.",
-                            J_Location = "Red Swastika School Singapore",
+                            J_Location = "Singapore",
                             J_Name = "Part-Time Teacher",
                             J_Salary = 11,
                             J_Skills = "Communication, Leadership, Critical Thinking, Time Management",
@@ -690,7 +690,7 @@ namespace JobBoard.Server.Migrations
                             J_Name = "Producer",
                             J_Salary = 30,
                             J_Skills = "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ",
-                            J_Type = "Senior-Level",
+                            J_Type = "Full-Time",
                             J_Urgency = false,
                             UpdatedBy = "System"
                         });
@@ -809,9 +809,6 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("JobId")

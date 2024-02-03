@@ -1,12 +1,13 @@
 ﻿@inject HttpClient _client
 
+
 <EditForm Model="@jobapplication" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <fieldset disabled="@Disabled">
         <div class="form-group">
-            <label>Job: </label>
-            <div>
+            <label class="form-label">Job: </label>
+            <div class="form-group col-md-3">
                 <InputSelect @bind-Value="@jobapplication.JobId" class="form-control">
                     <option value="">-- Select Job --</option>
                     @if (Jobs != null)
@@ -17,39 +18,49 @@
                         }
                     }
                 </InputSelect>
-                <ValidationMessage For="@(() =>jobapplication.JobId)" />
+                <ValidationMessage For="@(() =>jobapplication.JobId)" class="validation-message" />
             </div>
         </div>
-        <div class="form-group">
-            <label>Applicant </label>
-            <div>
-                <InputSelect @bind-Value="@jobapplication.ApplicantId" class="form-control">
-                    <option value="">-- Select Applicant --</option>
-                    @if (Applicants != null)
-                    {
-                        foreach (var applicant in Applicants)
-                        {
-                            <option value="@applicant.Id">@applicant.A_Name </option>
-                        }
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() =>jobapplication.JobId)" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Applicant:</label>
+                        <InputSelect @bind-Value="@jobapplication.ApplicantId" class="form-control">
+                            <option value="">-- Select Applicant --</option>
+                            @if (Applicants != null)
+                            {
+                                foreach (var applicant in Applicants)
+                                {
+                                    <option value="@applicant.Id">@applicant.A_Name </option>
+                                }
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() =>jobapplication.JobId)" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Status:</label>
+                        <InputText @bind-Value="@jobapplication.JA_Status" class="form-control" />
+                        <ValidationMessage For="@(() =>jobapplication.JA_Status)" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label> Cover Letter: </label>
             <div>
-                <InputText @bind-Value="@jobapplication.JA_CoverLetter" class="form-control" />
+                <InputTextArea @bind-Value="@jobapplication.JA_CoverLetter" class="form-control" rows="6"></InputTextArea>
                 <ValidationMessage For="@(() =>jobapplication.JA_CoverLetter)" />
             </div>
         </div>
         <div class="form-group">
             <label> Resume: </label>
             <div>
-                <InputText @bind-Value="@jobapplication.JA_Resume" class="form-control" />
+                <InputTextArea @bind-Value="@jobapplication.JA_Resume" class="form-control" rows="6"></InputTextArea>
                 <ValidationMessage For="@(() =>jobapplication.JA_Resume)" />
             </div>
         </div>
+
         <div class="form-group">
             <label> Portfolio: </label>
             <div>
@@ -57,13 +68,7 @@
                 <ValidationMessage For="@(() =>jobapplication.JA_Portfolio)" />
             </div>
         </div>
-        <div class="form-group">
-            <label> Status: </label>
-            <div>
-                <InputText @bind-Value="@jobapplication.JA_Status" class="form-control" />
-                <ValidationMessage For="@(() =>jobapplication.JA_Status)" />
-            </div>
-        </div>
+
     </fieldset>
     @if (!Disabled)
     {
@@ -73,6 +78,7 @@
     }
     <BackToList Target="jobapplications" />
 </EditForm>
+
 
 @code {
     [Parameter] public bool Disabled { get; set; } = false;
@@ -91,4 +97,8 @@
         Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
     }
 }
+
+
+
+
 

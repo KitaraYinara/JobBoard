@@ -439,7 +439,6 @@ namespace JobBoard.Server.Migrations
                     JobId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -481,7 +480,7 @@ namespace JobBoard.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "ca5950f7-f27f-4a9a-b6e6-21f8357da8c8", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMXf7LZScmHm3yuZmz8O3smDeNgoymwIhdpt0SSUqP7WN7YicaaUeNWCE5yJ4Z/5tQ==", null, false, "8aa859c9-91c9-40f3-8d64-df05a2d8a10b", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "3bccbec4-2df4-4d7c-927d-e8fea7b0de88", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOIZCUTUpEXwX7vLaquenp23p+EbqLMrije4XkZ+ysh/IIVqncuTZkKqZQfo+3qpzw==", null, false, "73b8534c-7d5e-4cc3-923e-8875f0c9629d", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Industries",
@@ -527,8 +526,8 @@ namespace JobBoard.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "EmployerId", "IndustryId", "J_Description", "J_Location", "J_Name", "J_Salary", "J_Skills", "J_Type", "J_Urgency", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.", "Red Swastika School Singapore", "Part-Time Teacher", 11, "Communication, Leadership, Critical Thinking, Time Management", "Part-Time", false, "System" },
-                    { 2, "System", new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "Looking for a Producer who will work on the morning drive time show. Responsibilities: Develop and produce innovative and creative audio and video programming for radio, podcast and digital platforms which will seize the audience’s attention while meeting the highest editorial standards", "Singapore", "Producer", 30, "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ", "Senior-Level", false, "System" }
+                    { 1, "System", new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.", "Singapore", "Part-Time Teacher", 11, "Communication, Leadership, Critical Thinking, Time Management", "Part-Time", false, "System" },
+                    { 2, "System", new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "Looking for a Producer who will work on the morning drive time show. Responsibilities: Develop and produce innovative and creative audio and video programming for radio, podcast and digital platforms which will seize the audience’s attention while meeting the highest editorial standards", "Singapore", "Producer", 30, "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ", "Full-Time", false, "System" }
                 });
 
             migrationBuilder.CreateIndex(

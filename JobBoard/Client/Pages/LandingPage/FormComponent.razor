@@ -1,0 +1,125 @@
+﻿@inject HttpClient _client
+
+<style>
+    .input 
+    {
+        width: 195px;
+        height: 20px;
+    } 
+
+    .form_row {
+        display: flex;
+    }
+
+    .form_column {
+        flex: 33.33%;
+        padding: 5px;
+    }
+
+    .button_size{
+        width: 190px;
+        height: 40px;
+    }
+</style>
+    
+<EditForm Model="@search" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class = "form_row"> 
+            <div class="form-group">
+                <label class="text-white">Job Name: </label>
+                <div class="input form_column">
+                    <InputText @bind-Value="@search.Src_Job_Name" class="form-control" @oninput="@((e) => { inputName=(string)e.Value;})" />
+                    <ValidationMessage For="@(() =>search.Src_Job_Name)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-white">Job Type: </label>
+                <div class="input form_column">
+                    <InputSelect @bind-Value="@search.Src_Job_Type" class="form-control" @oninput="@((e) => { inputType=(string)e.Value;})">
+                        <option value="">--Select Job Type--</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Internship">Internship</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() =>search.Src_Job_Type)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-white">Job Location: </label>
+                <div class="input form_column">
+                    <InputText @bind-Value="@search.Src_Location" class="form-control" />
+                    <ValidationMessage For="@(() =>search.Src_Location)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-white">Job Id: </label>
+                <div class="input form_column">
+                    <InputSelect @bind-Value="@search.JobId" class="form-control">
+                        <option value="">--Select Job Id--</option>
+                            @if (Jobs != null)
+                            {
+                                foreach (var job in Jobs)
+                                {
+                                    if((inputName == job.J_Name) || (inputType == job.J_Type))
+                                        {
+                                            <option value="@job.Id">@job.Id</option>
+                                        }
+                                }
+                            }
+                    </InputSelect>
+                    <ValidationMessage For="@(() =>search.JobId)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-white">Applicant Name: </label>
+                <div class="input form_column">
+                    <InputSelect @bind-Value="@search.ApplicantId" class="form-control">
+                        <option value="">--Select Applicant--</option>
+                            @if (Applicants!= null)
+                            {
+                                foreach (var applicant in Applicants)
+                                {
+                                    <option value="@applicant.Id">@applicant.A_Name </option>
+                                }
+                            }
+                    </InputSelect>
+                    <ValidationMessage For="@(() =>search.ApplicantId)" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+<br>
+    @if (!Disabled)
+    {
+        <button type="submit" class="button_size btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Search? search { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Search";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    //private IList<Search>? Searches;
+    private IList<Applicant>? Applicants;
+    private IList<Job>? Jobs;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+        //Searches = await _client.GetFromJsonAsync<List<Search>>($"{Endpoints.SearchesEndpoint}");
+        Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+        search.DateCreated = DateTime.Now;
+    }
+
+    private string inputName;
+    private string inputType;
+    private string inputLocation;
+
+
+}

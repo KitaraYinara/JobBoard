@@ -9,7 +9,7 @@ using JobBoard.Server.Data;
 using JobBoard.Shared.Domain;
 using JobBoard.Server.IRepository;
 
-namespace AdminBoard.Server.Controllers
+namespace JobBoard.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

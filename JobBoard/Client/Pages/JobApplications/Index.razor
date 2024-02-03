@@ -5,55 +5,41 @@
 @implements IDisposable
 @attribute [Authorize]
 
-<a href="/jobapplications/create" class="btn btn-secondary">
-    <span class="oi oi-plus"></span>
-    Create New Job Application
-</a>
+<div class="message-buttons d-flex justify-content-end">
+    <a href="/jobapplications/create" class="btn btn-primary my-3">
+        <span class="oi oi-plus"></span> Create New Job Application
+    </a>
+</div>
+
 @if (JobApplications == null)
 {
     <div class="alert alert-info">Loading Jobapplications...</div>
 }
 else
 {
-    <table class="table table-responsive" id="jobapplicationsTable">
-        <thead>
-            <tr>
-                <th>Job</th>
-                <th>Applicant</th>
-                <th>Cover Letter</th>
-                <th>Resume</th>
-                <th>Portfolio</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var jobapplication in JobApplications)
-            {
-                <tr>
-                    <td>@jobapplication.Job.J_Name</td>
-                    <td>@jobapplication.Applicant.A_Name</td>
-                    <td>@jobapplication.JA_CoverLetter</td>
-                    <td>@jobapplication.JA_Resume</td>
-                    <td>@jobapplication.JA_Portfolio</td>
-                    <td>@jobapplication.JA_Status</td>
-                    <td>
-                        <a href="/jobapplications/view/@jobapplication.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/jobapplications/edit/@jobapplication.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(jobapplication.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-
-        </tbody>
-    </table>
+    <JAStyle />
+    <div class="card-deck">
+        @foreach (var jobapplication in JobApplications)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@jobapplication.Job.J_Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@jobapplication.Applicant.A_Name</h6>
+                    <p class="card-text">@jobapplication.JA_CoverLetter</p>
+                    <div class="card-links">
+                        <a href="/jobapplications/view/@jobapplication.Id" class="card-link">View</a>
+                        <a href="/jobapplications/edit/@jobapplication.Id" class="card-link">Edit</a>
+                        <a @onclick="@(()=>Delete(jobapplication.Id))" class="card-link text-danger">Delete</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Status: @jobapplication.JA_Status</small>
+                </div>
+            </div>
+        }
+    </div>
 }
+
 
 @code {
     private List<JobApplication>? JobApplications;

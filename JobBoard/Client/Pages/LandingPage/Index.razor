@@ -1,5 +1,6 @@
 ﻿@page "/"
-
+@inject HttpClient _client
+@inject NavigationManager _navManager
 <PageTitle>EMPLEO</PageTitle>
 <head>
     <style>
@@ -9,28 +10,6 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),url('../Images/ImageForLanding.jpg');
             background-size: cover;
             background-position: center;
-            /*align-content: center;*/
-        }
-        .search-button{
-            width: 100px;
-            height: 50px;
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #fff;
-            background-color: purple;
-            border-radius: 5px;
-            position:absolute;
-            top: 110px;
-            text-align: center;
-        }
-        .text-colour{
-            color: #fff 
-        }
-        .input{
-            width:200px;
-            height:30px;
         }
 
         .img_row {
@@ -49,18 +28,36 @@
 </head>
 <body>
     <center>
-        <div class ="text-colour"><h1><i><b>EMPLEO</b></i></h1></div>
-        <input class="input" type="text" placeholder="Job Name...">
-        <input class="input" type="text" placeholder="Job Type...">
-        <input class="input" type="text" placeholder="Location...">
-        <button class="search-button">Search</button>
-        <div class="text-colour">Trending Jobs:</div>
-        <div class="img_row">
-            <div class="img_column"><img class="img" src="../Images/Amazon_Logo.jpg"></div>
-            <div class="img_column"><img class="img" src="../Images/Apple_Logo.jpg"></div>
-            <div class="img_column"><img class="img" src="../Images/Google_Logo.jpg"></div>
-        </div>
+    <div class ="text-white"><h1><i><b>EMPLEO</b></i></h1></div>
+    <FormComponent ButtonText="Search" search="search" OnValidSubmit="@CreateSearch" />
+    <div class="text-white">Trending Jobs:</div>
+    <div class="img_row">
+    <div class="img_column"><img class="img" src="../Images/Amazon_Logo.jpg"></div>
+    <div class="img_column"><img class="img" src="../Images/Apple_Logo.jpg"></div>
+    <div class="img_column"><img class="img" src="../Images/Google_Logo.jpg"></div>
+    </div>
     </center>
+    
 </body>
+
+@code {
+    Search search = new Search();
+    private List<Search> Searches = new List<Search>();
+    public Search LatestSearch;
+
+    private async Task CreateSearch()
+    {
+        await _client.PostAsJsonAsync(Endpoints.SearchesEndpoint, search);
+
+        Searches = await _client.GetFromJsonAsync<List<Search>>($"{Endpoints.SearchesEndpoint}");
+
+        if (Searches != null && Searches.Count > 0)
+        {
+            LatestSearch = Searches[Searches.Count - 1];
+            int? id = LatestSearch.JobId;
+            _navManager.NavigateTo($"/jobs/view/{id}");
+        }
+    }
+}
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JobBoard.Shared.Domain
 {
-    public class Search : BaseDomainModel, IValidatableObject
+    public class Search : BaseDomainModel
     {
         [Required]
         public string? Src_Job_Name { get; set; }
@@ -24,20 +24,5 @@ namespace JobBoard.Shared.Domain
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateCreated { get; set; }
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime DateUpdated { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            //throw new NotImplementedException();
-            if (DateUpdated != null | DateCreated != null)
-            {
-                if (DateUpdated < DateCreated)
-                {
-                    yield return new ValidationResult("DateUpdated must be greater than DateCreated", new[] { "DateUpdated" });
-                }
-            }
-        }
     }
 }
