@@ -39,7 +39,19 @@ else
                     <td>@applicant.A_Age</td>
                     <td>@applicant.A_Mobile</td>
                     <td>@applicant.A_DateOfBirth</td>
-                    <td>@applicant.A_ReferralLink</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(applicant.A_ReferralLink) &&
+                       !applicant.A_ReferralLink.Equals("NA", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="@applicant.A_ReferralLink" class="btn btn-info">
+                                View Referral
+                            </a>
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </td>
                     <td>
                         <a href="/applicants/view/@applicant.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>

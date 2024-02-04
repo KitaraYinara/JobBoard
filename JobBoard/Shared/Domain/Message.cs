@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobBoard.Shared.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace JobBoard.Shared.Domain
         [Required]
         public string? M_Recipient { get; set; }
         [Required]
+        [MaxLength(1000, ErrorMessage = "M_Content cannot exceed 1000 characters.")]
+        [DisallowCertainWords]
         public string? M_Content { get; set; }
         [Required]
         [DataType(DataType.Date)]

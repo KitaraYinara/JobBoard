@@ -238,7 +238,7 @@ namespace JobBoard.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa20c3bf-3864-4a31-b231-40463c04ab58",
+                            ConcurrencyStamp = "f722f7f3-da50-4f75-abb7-98c1556949a6",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,9 +246,9 @@ namespace JobBoard.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEnxhTeqZophEkoe7IWcJz1C3Vwi0nmD97bkaJO+N63s70LiIK+RybwBeV4OqjVm9w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK5c6u6uZsPANwjlJ4FkaX2TayGqDN1TUmRFFuCBn2jUXzQiOv5dg89/I4fgN36Plw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3f238dfb-b5eb-42ae-bfe7-75bc8290a43c",
+                            SecurityStamp = "6aae8ded-febb-472d-87b9-8760eae1100e",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -356,6 +356,7 @@ namespace JobBoard.Server.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("A_ReferralLink")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -592,6 +593,13 @@ namespace JobBoard.Server.Migrations
                             CreatedBy = "System",
                             I_Type = "Media",
                             UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedBy = "System",
+                            I_Type = "E Commerce",
+                            UpdatedBy = "System"
                         });
                 });
 
@@ -670,7 +678,7 @@ namespace JobBoard.Server.Migrations
                             IndustryId = 1,
                             J_Description = "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.",
                             J_Location = "Singapore",
-                            J_Name = "Part-Time Teacher",
+                            J_Name = "Part Time Teacher",
                             J_Salary = 11,
                             J_Skills = "Communication, Leadership, Critical Thinking, Time Management",
                             J_Type = "Part-Time",
@@ -692,6 +700,57 @@ namespace JobBoard.Server.Migrations
                             J_Skills = "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ",
                             J_Type = "Full-Time",
                             J_Urgency = false,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2010, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(2010, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployerId = 1,
+                            IndustryId = 10,
+                            J_Description = "Handle the Amazon website as a maintenance staff",
+                            J_Location = "Singapore",
+                            J_Name = "Amazon Senior Website Engineer",
+                            J_Salary = 0,
+                            J_Skills = "HTML, CSS, JavaScript, Python , C#, C, Database SQL",
+                            J_Type = "Full-Time",
+                            J_Urgency = false,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2014, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(2014, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployerId = 2,
+                            IndustryId = 10,
+                            J_Description = "An engineer position where you would be handling the maintenance work around the offices",
+                            J_Location = "Singapore",
+                            J_Name = "Google Engineer",
+                            J_Salary = 0,
+                            J_Skills = "Engineering Degree, Mechanic Experience",
+                            J_Type = "Full-Time",
+                            J_Urgency = true,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2009, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(2009, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployerId = 1,
+                            IndustryId = 10,
+                            J_Description = "An managerial position where you would be handling small teams in projects",
+                            J_Location = "Singapore",
+                            J_Name = "Apple Manager",
+                            J_Salary = 0,
+                            J_Skills = "Business Degree, Team Experience",
+                            J_Type = "Full-Time",
+                            J_Urgency = true,
                             UpdatedBy = "System"
                         });
                 });
@@ -768,7 +827,8 @@ namespace JobBoard.Server.Migrations
 
                     b.Property<string>("M_Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("M_Recipient")
                         .IsRequired()

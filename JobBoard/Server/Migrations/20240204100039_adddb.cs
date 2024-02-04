@@ -45,7 +45,7 @@ namespace JobBoard.Server.Migrations
                     A_Age = table.Column<int>(type: "int", nullable: false),
                     A_Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     A_DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    A_ReferralLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    A_ReferralLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -369,7 +369,7 @@ namespace JobBoard.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     M_Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     M_Recipient = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    M_Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    M_Content = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     M_TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployerId = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
@@ -480,7 +480,7 @@ namespace JobBoard.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "fa20c3bf-3864-4a31-b231-40463c04ab58", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEEnxhTeqZophEkoe7IWcJz1C3Vwi0nmD97bkaJO+N63s70LiIK+RybwBeV4OqjVm9w==", null, false, "3f238dfb-b5eb-42ae-bfe7-75bc8290a43c", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "f722f7f3-da50-4f75-abb7-98c1556949a6", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEK5c6u6uZsPANwjlJ4FkaX2TayGqDN1TUmRFFuCBn2jUXzQiOv5dg89/I4fgN36Plw==", null, false, "6aae8ded-febb-472d-87b9-8760eae1100e", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Industries",
@@ -495,7 +495,8 @@ namespace JobBoard.Server.Migrations
                     { 6, "System", "Agriculture", "System" },
                     { 7, "System", "Transport", "System" },
                     { 8, "System", "Manufacturing", "System" },
-                    { 9, "System", "Media", "System" }
+                    { 9, "System", "Media", "System" },
+                    { 10, "System", "E Commerce", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -526,8 +527,11 @@ namespace JobBoard.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "EmployerId", "IndustryId", "J_Description", "J_Location", "J_Name", "J_Salary", "J_Skills", "J_Type", "J_Urgency", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.", "Singapore", "Part-Time Teacher", 11, "Communication, Leadership, Critical Thinking, Time Management", "Part-Time", false, "System" },
-                    { 2, "System", new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "Looking for a Producer who will work on the morning drive time show. Responsibilities: Develop and produce innovative and creative audio and video programming for radio, podcast and digital platforms which will seize the audience’s attention while meeting the highest editorial standards", "Singapore", "Producer", 30, "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ", "Full-Time", false, "System" }
+                    { 1, "System", new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2017, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, "We are seeking a dedicated and enthusiastic Part-Time Teacher to join our school faculty. The ideal candidate will be passionate about education, possess excellent communication skills, and have the ability to create a positive and engaging learning environment. As a Part-Time Teacher, you will be responsible for delivering high-quality instruction, fostering student growth, and contributing to the overall success of the school.", "Singapore", "Part Time Teacher", 11, "Communication, Leadership, Critical Thinking, Time Management", "Part-Time", false, "System" },
+                    { 2, "System", new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2015, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "Looking for a Producer who will work on the morning drive time show. Responsibilities: Develop and produce innovative and creative audio and video programming for radio, podcast and digital platforms which will seize the audience’s attention while meeting the highest editorial standards", "Singapore", "Producer", 30, "Degree in Journalism, Mass Communications, Political Science or the Arts and Social Sciences , Creative, Resourceful, Communication, ", "Full-Time", false, "System" },
+                    { 3, "System", new DateTime(2010, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2010, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10, "Handle the Amazon website as a maintenance staff", "Singapore", "Amazon Senior Website Engineer", 0, "HTML, CSS, JavaScript, Python , C#, C, Database SQL", "Full-Time", false, "System" },
+                    { 4, "System", new DateTime(2014, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2014, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 10, "An engineer position where you would be handling the maintenance work around the offices", "Singapore", "Google Engineer", 0, "Engineering Degree, Mechanic Experience", "Full-Time", true, "System" },
+                    { 5, "System", new DateTime(2009, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2009, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10, "An managerial position where you would be handling small teams in projects", "Singapore", "Apple Manager", 0, "Business Degree, Team Experience", "Full-Time", true, "System" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,4 +1,5 @@
 ﻿@inject HttpClient _client
+@inject NavigationManager _navManager
 
 <EditForm Model="@applicant" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -47,7 +48,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Referrals: </label>
+            <label>Referral Link: (Type: NA if you do not have one)</label>
             <div>
                 <InputText @bind-Value="@applicant.A_ReferralLink" class="form-control" />
                 <ValidationMessage For="@(() =>applicant.A_ReferralLink)" />
@@ -60,6 +61,12 @@
             Create Applicant
         </button>
     }
+    @if (Disabled)
+    {
+        <button type="button" class="btn btn-primary" @onclick="()=> GoToReferralLink(applicant.A_ReferralLink)">
+            View Referral
+        </button>
+    }
     <BackToList Target="applicants" />
 </EditForm>
 @code {
@@ -67,4 +74,12 @@
     [Parameter] public Applicant? applicant { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private void GoToReferralLink(string referralLink)
+    {
+        if (!string.IsNullOrEmpty(referralLink) && Uri.IsWellFormedUriString(referralLink, UriKind.Absolute))
+        {
+            _navManager.NavigateTo(referralLink);
+        }
+    }
 }

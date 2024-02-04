@@ -4,6 +4,7 @@
 <table class="table table-responsive">
     <thead>
         <tr>
+            <th>Job Name:</th>
             <th>Applicant Name:</th>
             <th>Cover Letter:</th>
             <th>Resume:</th>
@@ -13,27 +14,26 @@
     </thead>
     <tbody>
         @{
-            var employerJobs = Jobs.Where(j => j.EmployerId == employer.Id);
-            foreach (var job in employerJobs)
+            var employerJobApplications = JobApplications.Where(ja => Jobs.Any(j => j.Id == ja.JobId && j.EmployerId == employer.Id));
+            foreach (var jobApplication in employerJobApplications)
             {
-                var jobApplication = JobApplications.FirstOrDefault(ja => ja.JobId == job.Id);
-                if (jobApplication != null)
-                {
-                    <tr>
-                        <td>@jobApplication.Applicant.A_Name</td>
-                        <td>@jobApplication.JA_CoverLetter</td>
-                        <td>@jobApplication.JA_Resume</td>
-                        <td>@jobApplication.JA_Portfolio</td>
-                        <td>
-                            <button class="btn btn-success" @onclick="()=>ApproveApplication(jobApplication)">
-                                <span class="oi oi-circle-check"></span>
-                            </button>
-                            <button class="btn btn-danger" @onclick="()=>RejectApplication(jobApplication)">
-                                <span class="oi oi-circle-x"></span>
-                            </button>
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>@jobApplication.Job.J_Name</td>
+                    <td>@jobApplication.Applicant.A_Name</td>
+                    <td>@jobApplication.JA_CoverLetter</td>
+                    <td>@jobApplication.JA_Resume</td>
+                    <td>@jobApplication.JA_Portfolio</td>
+                    <td>
+                        <button class="btn btn-success" @onclick="()=>ApproveApplication(jobApplication)">
+                            <span class="oi oi-circle-check"></span>
+                            Approve
+                        </button>
+                        <button class="btn btn-danger" @onclick="()=>RejectApplication(jobApplication)">
+                            <span class="oi oi-circle-x"></span>
+                            Do Not Approve
+                        </button>
+                    </td>
+                </tr>
             }
         }
     </tbody>
@@ -70,8 +70,9 @@
         await UpdateJobApplicationStatus(jobApplication);
     }
 
-    private async Task UpdateJobApplicationStatus(JobApplication jobApplication)
+    public async Task UpdateJobApplicationStatus(JobApplication jobApplication)
     {
         await _client.PutAsJsonAsync($"{Endpoints.JobApplicationsEndpoint}/{jobApplication.Id}", jobApplication);
+        StateHasChanged();
     }
 }

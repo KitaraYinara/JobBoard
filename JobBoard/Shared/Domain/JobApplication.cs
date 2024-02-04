@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobBoard.Shared.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace JobBoard.Shared.Domain
     public class JobApplication : BaseDomainModel, IValidatableObject
     {
         [Required]
+        [DisallowCertainWords]
         public string? JA_CoverLetter { get; set; }
         [Required]
+        [DisallowCertainWords]
         public string? JA_Resume { get; set; }
         [Required]
+        [DisallowCertainWords]
+        [UrlOrSpecificValue("NA", ErrorMessage = "The {0} field must be a valid URL or 'NA'.")]
         public string? JA_Portfolio { get; set; }
         [Required]
         public string? JA_Status { get; set; }

@@ -68,7 +68,14 @@ namespace JobBoard.Server.Configurations.Entities
                 I_Type = "Media",
                 CreatedBy = "System",
                 UpdatedBy = "System"
-             }
+             },
+             new Industry
+             {
+                Id = 10,
+                I_Type = "E Commerce",
+                CreatedBy = "System",
+                UpdatedBy = "System"
+                          }
             );
         }
     }
