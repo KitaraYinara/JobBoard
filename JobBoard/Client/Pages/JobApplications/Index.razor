@@ -5,11 +5,7 @@
 @implements IDisposable
 @attribute [Authorize]
 
-<div class="message-buttons d-flex justify-content-end">
-    <a href="/jobapplications/create" class="btn btn-primary my-3">
-        <span class="oi oi-plus"></span> Create New Job Application
-    </a>
-</div>
+<h3>Job Applications</h3>
 
 @if (JobApplications == null)
 {

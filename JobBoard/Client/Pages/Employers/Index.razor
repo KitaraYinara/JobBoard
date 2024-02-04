@@ -49,6 +49,9 @@ else
                         <button class="btn btn-danger" @onclick="@(()=>Delete(employer.Id))">
                             <span class="oi oi-delete"></span>
                         </button>
+                        <a href="/employers/approve/@employer.Id" class="btn btn-warning">
+                            <span class="oi oi-document"></span>
+                        </a>
                     </td>
                 </tr>
             }

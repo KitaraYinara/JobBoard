@@ -1,0 +1,77 @@
+﻿@page "/employers/approve/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Applicant Name:</th>
+            <th>Cover Letter:</th>
+            <th>Resume:</th>
+            <th>Portfolio:</th>
+            <th>Actions:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var employerJobs = Jobs.Where(j => j.EmployerId == employer.Id);
+            foreach (var job in employerJobs)
+            {
+                var jobApplication = JobApplications.FirstOrDefault(ja => ja.JobId == job.Id);
+                if (jobApplication != null)
+                {
+                    <tr>
+                        <td>@jobApplication.Applicant.A_Name</td>
+                        <td>@jobApplication.JA_CoverLetter</td>
+                        <td>@jobApplication.JA_Resume</td>
+                        <td>@jobApplication.JA_Portfolio</td>
+                        <td>
+                            <button class="btn btn-success" @onclick="()=>ApproveApplication(jobApplication)">
+                                <span class="oi oi-circle-check"></span>
+                            </button>
+                            <button class="btn btn-danger" @onclick="()=>RejectApplication(jobApplication)">
+                                <span class="oi oi-circle-x"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    Employer? employer = new Employer();
+    private List<Job>? Jobs = new List<Job>();
+    private List<JobApplication>? JobApplications = new List<JobApplication>();
+    private List<Applicant>? Applicants = new List<Applicant>();
+    [Parameter] public int id { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Jobs = await _client.GetFromJsonAsync<List<Job>>($"{Endpoints.JobsEndpoint}");
+        JobApplications = await _client.GetFromJsonAsync<List<JobApplication>>($"{Endpoints.JobApplicationsEndpoint}");
+        Applicants = await _client.GetFromJsonAsync<List<Applicant>>($"{Endpoints.ApplicantsEndpoint}");
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        employer = await _client.GetFromJsonAsync<Employer>($"{Endpoints.EmployersEndpoint}/{id}");
+    }
+
+    private async Task ApproveApplication(JobApplication jobApplication)
+    {
+        jobApplication.JA_Status = "Approved";
+        await UpdateJobApplicationStatus(jobApplication);
+    }
+
+    private async Task RejectApplication(JobApplication jobApplication)
+    {
+        jobApplication.JA_Status = "Not Approved";
+        await UpdateJobApplicationStatus(jobApplication);
+    }
+
+    private async Task UpdateJobApplicationStatus(JobApplication jobApplication)
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.JobApplicationsEndpoint}/{jobApplication.Id}", jobApplication);
+    }
+}
